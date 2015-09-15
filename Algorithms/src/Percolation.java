@@ -1,10 +1,9 @@
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 /**
  * The <tt>Percolation</tt> class represents a percolate data structure.
@@ -167,10 +166,11 @@ public class Percolation {
     public static void main(String[] args) throws IOException {
         int N = 10;
         
-        final String PATH_NAME = "C:\\Users\\THABETAK\\Documents\\Personal\\IDrive-Sync"
+        /*final String PATH_NAME = "C:\\Users\\THABETAK\\Documents\\Personal\\IDrive-Sync"
                                + "\\Coursera - Algorithms, Part I\\Programming Assingments"
-                               + "\\percolation-testing\\";
-        
+                               + "\\percolation-testing\\";*/
+
+        final String PATH_NAME = "../percolation-testing/";
         final String FILE_NAME = "input8.txt";
         
         Scanner scanner = new Scanner(new File(PATH_NAME + FILE_NAME));
