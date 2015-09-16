@@ -38,7 +38,7 @@ public class Percolation {
     /**
      * Initializes a Percolation item with N x N sites.
      * @param N number of sites in each dimension
-     * @throws java.lang.IllegalArgumentException if N <= 0
+     * @throws IllegalArgumentException if N <= 0
      */
     public Percolation(int N) {
         if (N <= 0) {
@@ -60,7 +60,7 @@ public class Percolation {
      * validate if index (i, j) is within bounds.
      * @param i index of 1st dimension
      * @param j index of second dimension
-     * @throws java.lang.IndexOutOfBoundsException unless 0 < i <= N and 0 < j <= N
+     * @throws IndexOutOfBoundsException unless 0 < i <= N and 0 < j <= N
      */
     private void validate(int i, int j) {
         if (i <= 0 || i > size) { // first index
@@ -94,7 +94,7 @@ public class Percolation {
      * and connects the site to all its open neighbors.
      * @param i index of 1st dimension
      * @param j index of second dimension
-     * @throws java.lang.IndexOutOfBoundsException unless 0 < i <= N and 0 < j <= N
+     * @throws IndexOutOfBoundsException unless 0 < i <= N and 0 < j <= N
      */
     public void open(int i, int j) {
         validate(i, j);
@@ -130,7 +130,7 @@ public class Percolation {
      * @param i index of 1st dimension
      * @param j index of second dimension
      * @return <tt>true</tt> is site (i, j) is open, and <tt>false</tt> otherwise
-     * @throws java.lang.IndexOutOfBoundsException unless 0 < i <= N and 0 < j <= N
+     * @throws IndexOutOfBoundsException unless 0 < i <= N and 0 < j <= N
      */
     public boolean isOpen(int i, int j) {
         validate(i, j);
@@ -142,7 +142,7 @@ public class Percolation {
      * @param i index of 1st dimension
      * @param j index of second dimension
      * @return <tt>true</tt> is site (i, j) is full, and <tt>false</tt> otherwise
-     * @throws java.lang.IndexOutOfBoundsException unless 0 < i <= N and 0 < j <= N
+     * @throws IndexOutOfBoundsException unless 0 < i <= N and 0 < j <= N
      */
     public boolean isFull(int i, int j) {
         validate(i, j);

@@ -23,7 +23,7 @@ public class PercolationStats {
      * of size N x N and performs T random experiments.
      * @param N dimension of sites grid
      * @param T number of times to repeat experiment
-     * @throws java.lang.IllegalArgumentException if N <= 0 or T <= 0
+     * @throws IllegalArgumentException if N <= 0 or T <= 0
      */
     public PercolationStats(int N, int T) {
         if (N <= 0) {
