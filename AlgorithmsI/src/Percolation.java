@@ -165,13 +165,9 @@ public class Percolation {
      */
     public static void main(String[] args) throws IOException {
         int N = 10;
-        
-        /*final String PATH_NAME = "C:\\Users\\THABETAK\\Documents\\Personal\\IDrive-Sync"
-                               + "\\Coursera - Algorithms, Part I\\Programming Assingments"
-                               + "\\percolation-testing\\";*/
 
-        final String PATH_NAME = "../percolation-testing/";
-        final String FILE_NAME = "input8.txt";
+        final String PATH_NAME = "percolation-testing/";
+        final String FILE_NAME = "input10.txt";
         
         Scanner scanner = new Scanner(new File(PATH_NAME + FILE_NAME));
         N = scanner.nextInt();
