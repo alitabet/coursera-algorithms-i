@@ -10,16 +10,16 @@ import java.util.Scanner;
  * This implementation supports <em>percolates</em> operation to determine
  * whether a system percolates.
  * <p> 
- * The implementation uses an object <tt>WeightedQuickUnionUF</tt>  to store 
- * the sites. For a <tt>Percolation</tt> object of size N, a 
- * <tt>WeightedQuickUnionUF</tt> of size N^2 + 2 is created.
+ * The implementation uses an object <em>WeightedQuickUnionUF</em>  to store
+ * the sites. For a <tt>Percolation</tt> object of size N, a
+ * <em>WeightedQuickUnionUF</em> of size N^2 + 2 is created.
  * The N^2 corresponds to all the sites in the Percolation, and
  * the extra 2 represent 2 virtual sites, one top and one bottom  
- * Whenever a site is opened, the <tt>WeightedQuickUnionUF</tt> 
+ * Whenever a site is opened, the <em>WeightedQuickUnionUF</em>
  * will connect it to all its open neighbors (use a 4-connectivity).
  * </p>
  * <p>
- * To implement the percolation efficiently, the <tt>WeightedQuickUnionUF</tt>
+ * To implement the percolation efficiently, the <em>WeightedQuickUnionUF</em>
  * stores 2 extra virtual sites. The top site is always connected to the open
  * sites of the first row. The bottom site is always connected to the open sites
  * of the last row. To check whether a system percolates, we just check whether
@@ -168,7 +168,7 @@ public class Percolation {
 
         final String PATH_NAME = "percolation-testing/";
         final String FILE_NAME = "input10.txt";
-        
+
         Scanner scanner = new Scanner(new File(PATH_NAME + FILE_NAME));
         N = scanner.nextInt();
         StdDraw.show(0);
