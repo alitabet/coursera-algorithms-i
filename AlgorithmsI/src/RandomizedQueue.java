@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
@@ -61,8 +62,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private void resize(int capacity) {
         assert capacity >= N;
         Item[] temp = (Item[]) new Object[capacity];
-        for (int i = 0; i < N; i++) {
-            temp[i] = a[i];
+        int count = 0;
+        for (Item item : a) {
+            temp[count++] = item;
         }
         a = temp;
     }
@@ -87,11 +89,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      */
     public Item dequeue() {
         if (isEmpty()) throw new NoSuchElementException("Queue underflow");
-        Item item = a[N-1];
-        a[N-1] = null;                              // to avoid loitering
-        N--;
-        // shrink size of array if necessary
-        if (N > 0 && N == a.length/4) resize(a.length/2);
+        int randIdx = StdRandom.uniform(N);
+        Item item = a[randIdx];
+        if (item != null) {
+            a[randIdx] = null;                              // to avoid loitering
+            N--;
+            // shrink size of array if necessary
+            if (N > 0 && N == a.length / 4) resize(a.length / 2);
+        }
         return item;
     }
 
@@ -115,19 +120,29 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // an iterator, doesn't implement remove() since it's optional
     private class ArrayIterator<Item> implements Iterator<Item> {
 
-        public ArrayIterator() {
-        }
+        private int i;
+        private Item[] notNull = (Item[]) new Object[N];; // Array of elements not null
 
-        public boolean hasNext() {
-            return false;
+        ArrayIterator() {
+            i = 0;
+            //notNull = (Item[]) new Object[N];
+
+            int count = 0;
+            for (int i = 0; i < a.length; i++) {
+                if (a[i] != null) {
+                    notNull[count++] = (Item) a[i];
+                }
+            }
+        }
+        public boolean hasNext()  { return i < N;                               }
+
+        public Item next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            return notNull[i++];
         }
 
         public void remove() {
             throw new UnsupportedOperationException();
-        }
-
-        public Item next() {
-            return null;
         }
     }
 
@@ -135,24 +150,29 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      * Unit tests the <tt>Deque</tt> data type.
      */
     public static void main(String[] args) {
-        Integer[] temp = new Integer[10];
 
-        for (int i = 0; i < temp.length; i++) {
-            temp[i] = StdRandom.uniform(100);
-        }
+        RandomizedQueue<Integer> randomQueue =  new RandomizedQueue<>();
 
-        for (int i : temp) {
-            StdOut.print(i + " ");
-        }
-        StdOut.print("\n");
+        while (!StdIn.isEmpty()) {
+            String item = StdIn.readString();
 
-        int idx = StdRandom.uniform(temp.length);
-        StdOut.println("Random index = " + idx);
-        temp[5] = null;
-        StdOut.println("Length = " + temp.length);
-        for (int i : temp) {
-            StdOut.print(i + " ");
+            switch (item) {
+                case "-":
+                    StdOut.println(randomQueue.dequeue());
+                    break;
+                case "*":
+                    StdOut.println(randomQueue.sample());
+                    break;
+                case "=":
+                    StdOut.print("| ");
+                    for (Integer s : randomQueue) {
+                        StdOut.print(s + " | ");
+                    }
+                    StdOut.print("\n");
+                    break;
+                default:
+                    randomQueue.enqueue(Integer.parseInt(item));
+            }
         }
-        StdOut.print("\n");
     }
 }
