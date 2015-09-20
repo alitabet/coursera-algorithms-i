@@ -179,6 +179,7 @@ public class Deque<Item> implements Iterable<Item> {
      * Unit tests the <tt>Deque</tt> data type.
      */
     public static void main(String[] args) {
+
         Deque<String> deque = new Deque<String>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
@@ -203,17 +204,6 @@ public class Deque<Item> implements Iterable<Item> {
                     StdOut.print("\n");
                     break;
             }
-
-           /* if (item.charAt(0) == '+') deque.addFirst(item.substring(1));
-            else if (item.charAt(0) == '*') deque.addLast(item.substring(1));
-            else if (item.charAt(0) == '-' && !deque.isEmpty()) StdOut.print(deque.removeFirst() + "\n");
-            else if (item.charAt(0) == '/' && !deque.isEmpty()) StdOut.print(deque.removeLast() + "\n");
-            else if (item.charAt(0) == '=') {
-                for (String s : deque) {
-                    StdOut.print(s + " ");
-                }
-                StdOut.print("\n");
-            }*/
         }
 
         if (deque.isEmpty()) StdOut.println("Deque is empty");
