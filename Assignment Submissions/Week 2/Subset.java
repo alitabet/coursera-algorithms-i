@@ -19,24 +19,9 @@ public class Subset {
             randomQueue.enqueue(StdIn.readString());
         }
 
-        int N = randomQueue.size();
-        /*if (k > N) {
-            StdOut.println("Value provided for k (" + k
-                    + ") is larger than N (" + N + ")");
-        }
-        StdOut.println("String list is: ");
-        for (String s : randomQueue) {
-            StdOut.print(s + " ");
-        }
-        StdOut.print("\n");
-        StdOut.println("Random list of size " + k);*/
-
         for (int i = 0; i < k; i++) {
             String s = randomQueue.dequeue();
-            while (s == null) {
-                s = randomQueue.dequeue();
-            }
-            StdOut.println(s + " ");
+            StdOut.println(s);
         }
     }
 }
