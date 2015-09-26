@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * The <tt>BruteCollinearPoints</tt> class implements
- * an algorithm to brute force find sets of 4 collinear
- * points given an array of points.
+ * The <tt>FastCollinearPoints</tt> class implements
+ * an algorithm to find line segments of at least
+ * 4 collinear points. The fast implementation uses
+ * sorting to optimize the search.
  * <p>
  * The implementation uses stores an array of points in
  * <em>points</em> and finds all line segments containing
@@ -18,43 +19,63 @@ import java.util.Arrays;
  *
  * @author Ali K Thabet
  **/
-public class BruteCollinearPoints {
+public class FastCollinearPoints {
 
     private Point[] points; // array of all points
     private LineSegment[] lineSegments; // array of line segments with 4 collinear points
     private int N; // number of line segments with 4 collinear points
 
     /**
-     * Brute force approach, search all
-     * combinations of 4 points and store
-     * those with 4 collinear points
+     * Fast collinear search method
+     * using sorting
      *
      * @param p array of input points
      */
-    public BruteCollinearPoints(Point[] p) {
+    public FastCollinearPoints(Point[] p) {
 
         points = p;
-        //lineSegments = new ArrayList<LineSegment>();
         ArrayList<LineSegment> tempLineSegment = new ArrayList<>();
         N = 0;
-        if (points == null) throw new NullPointerException("Input array is null");
 
+        if (points == null) throw new NullPointerException("Input array is null");
+        ArrayList<Point> tempList = new ArrayList<>();
         for (int i = 0; i < points.length; i++) {
             checkPoint(i);
-            for (int j = i + 1; j < points.length; j++) {
-                checkPoint(j);
-                checkPoints(i, j);
-                for (int k = j + 1; k < points.length; k++) {
-                    checkPoint(k);
-                    if (points[i].slopeTo(points[j]) != points[i].slopeTo(points[k])) continue;
-                    for (int w = k + 1; w < points.length; w++) {
-                        checkPoint(w);
-                        if (points[i].slopeTo(points[k]) == points[i].slopeTo(points[w])) {
-                            Point[] temp = {points[i], points[j], points[k], points[w]};
-                            Arrays.sort(temp, 0, temp.length);
-                            tempLineSegment.add(new LineSegment(temp[0], temp[temp.length - 1]));
+            Point[] temp = new Point[points.length - 1]; // aux array
+            int idx = 0;
+            for (int j = 0; j < points.length; j++) {
+                if (i == j) continue;;
+                temp[idx++] = points[j];
+            }
+            Arrays.sort(temp, points[i].slopeOrder());
+            int prev = 0, curr = 1;
+            while (curr < temp.length) {
+                if (points[i].slopeTo(temp[prev]) == points[i].slopeTo(temp[curr])) {
+                    curr++;
+                }
+                else {
+                    if (curr - prev > 2) {
+                        Point[] aux = new Point[curr - prev + 1];
+                        aux[0] = points[i];
+                        int count = 1;
+                        for (int k = prev; k < curr; k++) aux[count++] = temp[k];
+
+                        Arrays.sort(aux);
+                        boolean duplicate = false;
+                        for (Point pp : tempList) {
+                            if (aux[0].compareTo(pp) == 0) {
+                                duplicate = true;
+                                break;
+                            }
+                        }
+                        if (!duplicate) {
+                            LineSegment line = new LineSegment(aux[0], aux[aux.length - 1]);
+                            tempList.add(aux[0]);
+                            tempLineSegment.add(line);
                         }
                     }
+                    prev = curr;
+                    curr++;
                 }
             }
         }
@@ -100,7 +121,7 @@ public class BruteCollinearPoints {
     public static void main(String[] args) {
 
         // read the N points from a file
-        String fileName = "collinear/input40.txt";
+        String fileName = "collinear/input10.txt";
         In in = new In(fileName);
         int N = in.readInt();
         Point[] points = new Point[N];
@@ -120,7 +141,7 @@ public class BruteCollinearPoints {
         StdDraw.show();
 
         // print and draw the line segments
-        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+        FastCollinearPoints collinear = new FastCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
             segment.draw();
