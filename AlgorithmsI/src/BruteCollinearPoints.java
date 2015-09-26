@@ -33,7 +33,7 @@ public class BruteCollinearPoints {
      */
     public BruteCollinearPoints(Point[] p) {
 
-        points = p;
+        points = p.clone();
         //lineSegments = new ArrayList<LineSegment>();
         ArrayList<LineSegment> tempLineSegment = new ArrayList<>();
         N = 0;
@@ -82,7 +82,7 @@ public class BruteCollinearPoints {
      * @return the array of line segments
      */
     public LineSegment[] segments() {
-        return lineSegments;
+        return lineSegments.clone();
     }
 
     // check if two points are equal
