@@ -8,10 +8,6 @@ import edu.princeton.cs.algs4.StdOut;
  */
 public class Solver {
 
-    private static final String HAMMING = "hamming";
-    private static final String MANHATTAN = "manhattan";
-
-    private static String priorityMeasure = MANHATTAN;
     private int numberMoves;
     private MinPQ<SearchNode> pq;
     private MinPQ<SearchNode> twinPq;
@@ -27,13 +23,14 @@ public class Solver {
         first.previous = null;
         first.moves = 0;
         first.item = initial;
-
+        first.manhattan = first.item.manhattan();
         pq.insert(first);
 
         SearchNode twinFirst = new SearchNode();
         twinFirst.item = first.item.twin();
         twinFirst.previous = null;
         twinFirst.moves = 0;
+        twinFirst.manhattan = twinFirst.item.manhattan();
         twinPq.insert(twinFirst);
 
         while (true) {
@@ -62,7 +59,7 @@ public class Solver {
                 curr.item = b;
                 curr.previous = prev;
                 curr.moves = prev.moves + 1;
-
+                curr.manhattan = curr.item.manhattan();
                 pq.insert(curr);
             }
 
@@ -73,7 +70,7 @@ public class Solver {
                 curr.item = b;
                 curr.previous = twinPrev;
                 curr.moves = twinPrev.moves + 1;
-
+                curr.manhattan = curr.item.manhattan();
                 twinPq.insert(curr);
             }
         }
@@ -124,20 +121,16 @@ public class Solver {
         private Board item;
         private SearchNode previous;
         private int moves;
+        private int manhattan;
 
         @Override
         public int compareTo(SearchNode that) {
-            int priority, thatPriority;
-            if (priorityMeasure.equals(Solver.HAMMING)) {
-                priority = this.item.hamming() + this.moves;
-                thatPriority = that.item.hamming() + that.moves;
-
-            } else {
-                priority = this.item.manhattan() + this.moves;
-                thatPriority = that.item.manhattan() + that.moves;
-            }
-            if (priority < thatPriority) return -1;
-            if (priority > thatPriority) return 1;
+            int priorityManhattan = this.manhattan+ this.moves;
+            int thatPriorityManhattan = that.manhattan + that.moves;
+            if (priorityManhattan < thatPriorityManhattan) return -1;
+            if (priorityManhattan > thatPriorityManhattan) return 1;
+            if (this.manhattan < that.manhattan) return -1;
+            if (this.manhattan > that.manhattan) return 1;
             return 0;
         }
     }

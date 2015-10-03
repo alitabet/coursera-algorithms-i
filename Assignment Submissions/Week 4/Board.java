@@ -93,7 +93,8 @@ public class Board {
                 if (tiles[i][j] == 0) continue;
 
                 curr = doubleIndex(tiles[i][j]);
-                manhattanDistance += (Math.abs(curr[0] - i - 1) + Math.abs(curr[1] - j - 1));
+                manhattanDistance +=
+                        (Math.abs(curr[0] - i - 1) + Math.abs(curr[1] - j - 1));
             }
         }
         return manhattanDistance;
