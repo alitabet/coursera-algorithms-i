@@ -53,7 +53,9 @@ public class Solver {
             }
 
             for (Board b : prev.item.neighbors()) {
-                if (b.equals(prev.item)) continue;
+                if (prev.previous != null) {
+                    if (b.equals(prev.previous.item)) continue;
+                }
 
                 SearchNode curr = new SearchNode();
                 curr.item = b;
@@ -64,7 +66,9 @@ public class Solver {
             }
 
             for (Board b : twinPrev.item.neighbors()) {
-                if (b.equals(twinPrev.item)) continue;
+                if (twinPrev.previous != null) {
+                    if (b.equals(twinPrev.previous.item)) continue;
+                }
 
                 SearchNode curr = new SearchNode();
                 curr.item = b;

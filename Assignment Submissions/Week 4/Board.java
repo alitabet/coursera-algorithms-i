@@ -172,6 +172,13 @@ public class Board {
         Board board = (Board) o;
 
         if (N != board.N) return false;
+
+        /*for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (tiles[i][j] != board.tiles[i][j]) return false;
+            }
+        }
+        return true;*/
         return Arrays.deepEquals(tiles, board.tiles);
 
     }
