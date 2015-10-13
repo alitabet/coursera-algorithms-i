@@ -18,7 +18,7 @@ public class KdTreeVisualizer {
     public static void main(String[] args) {
         RectHV rect = new RectHV(0.0, 0.0, 1.0, 1.0);
         StdDraw.show(0);
-        //KdTree kdtree = new KdTree();
+        KdTree kdtree = new KdTree();
         while (true) {
             if (StdDraw.mousePressed()) {
                 double x = StdDraw.mouseX();
@@ -27,9 +27,9 @@ public class KdTreeVisualizer {
                 Point2D p = new Point2D(x, y);
                 if (rect.contains(p)) {
                     StdOut.printf("%8.6f %8.6f\n", x, y);
-                    //kdtree.insert(p);
+                    kdtree.insert(p);
                     StdDraw.clear();
-                    //kdtree.draw();
+                    kdtree.draw();
                 }
             }
             StdDraw.show(50);
